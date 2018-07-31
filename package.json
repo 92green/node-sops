@@ -1,0 +1,31 @@
+{
+  "name": "@blueflag/sops",
+  "version": "0.1.0",
+  "main": "./lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf lib && NODE_ENV=production babel src --out-dir lib --ignore **/*-test.js",
+    "flow": "blueflag-test flow",
+    "flow-coverage": "blueflag-test flow-coverage -M",
+    "lint": "blueflag-test lint",
+    "prepublishOnly": "yarn build",
+    "test": "yarn jest",
+    "test-all": "yarn lint && yarn flow && yarn test && yarn flow-coverage"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.282.1",
+    "js-yaml": "^3.12.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "blueflag-test": "^0.20.0",
+    "proto-babel-plugin-extract-flow-types": "git+ssh://git@github.com/blueflag/proto-babel-plugin-extract-flow-types.git#v0.1.1"
+  }
+}
