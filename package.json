@@ -7,7 +7,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf lib && NODE_ENV=production babel src --out-dir lib --ignore **/*-test.js",
+    "build": "rm -rf lib && NODE_ENV=production babel src --out-dir lib --ignore '**/*-test.js, __mocks__/**'",
     "flow": "blueflag-test flow",
     "flow-coverage": "blueflag-test flow-coverage -M",
     "lint": "blueflag-test lint",
