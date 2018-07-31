@@ -4,7 +4,7 @@ import {toEnvFromFile} from '../';
 import path from 'path';
 import fs from 'fs';
 
-// jest.mock('../kmsDecryptSopsKey');
+jest.mock('../kmsDecryptSopsKey');
 
 
 test('Can read from yml file', async () => {
