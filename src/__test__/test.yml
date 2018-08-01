@@ -1,0 +1,15 @@
+YML_TEST_VAR_STRING: ENC[AES256_GCM,data:OGNqDTI7sFk6yPMKwA82,iv:DRZDvuUc+txMHpHQl5+uVUDDVfqvogQN1jrYDPklOyk=,tag:Z9IN9v2Bn+HOEDyQ7IdY+Q==,type:str]
+YML_TEST_VAR_INT: ENC[AES256_GCM,data:RA==,iv:Xyx/KlEh056ArUe/SEbj3EHJmYhndwzyIh/yObgLNjo=,tag:cHp3KMH2rwLlx6PDaB9mnA==,type:int]
+YML_TEST_VAR_FLOAT: ENC[AES256_GCM,data:gzUi,iv:v8Rj6cFQ8uhI39S8xZKziitVQsdwiB48nm7VYM6OxM8=,tag:zwuVIVVmsHwh/U2cCvVQ8w==,type:float]
+YML_TEST_VAR_BOOLEAN: ENC[AES256_GCM,data:N6xP2g==,iv:DAUKJFjxLV6jYHvnmjeXAhigeaWdgPG8TF6iz0VzPjY=,tag:Jg0U4U3G9YlafTzKabkD/g==,type:bool]
+sops:
+    kms:
+    -   arn: arn:aws:kms:ap-southeast-2:171391785505:key/c82f238a-c2c1-4abe-b99c-32aeaded8f82
+        created_at: '2018-07-31T00:48:51Z'
+        enc: AQICAHhjUYDZj/+EzWwb/QWcT7wT0ljdDw2+e+6M9CgwXO/nbgHz3eHuYGJSZQ+76VKb+ukkAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMCsKyBLvrf0RURYgeAgEQgDuHd+mLAThjEIYjP70uD++RMaDKByeE+A6x+3ZDBLHHJXTHFF6I2rdniCG3e2gCOq/6TDiyYwQ62Y4aFQ==
+    gcp_kms: []
+    lastmodified: '2018-07-31T06:14:25Z'
+    mac: ENC[AES256_GCM,data:xKcSCA8dT1ROtl6S1vLp15HRQ+punhGCY+l/ZZ8Ee4+bnzRdRRu21NWUAdIR0NXxwmaTKY3Ph1HZX2PAQhfKYDNc9x5T/yB/kj8IjV9imId2YaoSzt6yexaTENWiQ0QQ2L/DTIPAw3Ip3VURn2xfDHWD//vrmMLtoVoL3fZ58o4=,iv:KNsj1WxcIgl6aOtMJFiQ87XUUYbwQetkB6dasDGJdNw=,tag:Ti10tcAkt64QZaHGcglXHw==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.0.5
