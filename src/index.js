@@ -59,7 +59,7 @@ export async function readValueAtPathFromData(path: string[], data: Sops, decryp
 export function readValueAtPathFromFile(filePath: string){
     let data =  readSopsFile(filePath);
     let decryptKey =  data.then(({sops}) => kmsDecryptSopsKey(sops));
-    return async (path: string[]) => readValueAtPathFromData(path, await data, await decryptKey)
+    return async (path: string[]) => readValueAtPathFromData(path, await data, await decryptKey);
 }
 
 async function readSopsFile(file: string): Promise<Sops> {
