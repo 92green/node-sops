@@ -37,7 +37,32 @@ const defaults = {
     overrideExisting: false
 };
 
-export async function toEnvFromFile(file: string, options?: Options): Promise<void> {
+
+
+/**
+ * Decodes an encoded value from file that has been loaded as a javascript object.
+ * @param {string[]} path key path where the key can be found.
+ * @param {Object} data Javascript object containing encrypted data.
+ * @param {Buffer} decryptKey buffer containing the decript key, attempts to get the key from KMS if not supplied.
+ */
+export async function readValueAtPathFromData(path: string[], data: Sops, decryptKey: ?Buffer){
+    decryptKey = await decryptKey || await kmsDecryptSopsKey(data.sops);
+    if(!decryptKey) throw new Error('Unable to decrypt sops key');
+    let value = path.reduce((o, n) => o[n], data);
+    return decryptItem(path.join(':'), value, decryptKey, data.sops);
+}
+
+/**
+ * Return a partially applied version of `readValueAtPathFromData` that reads the file and the decription key
+ * @param {sting} filePath path where the sops file can be found
+ */
+export function readValueAtPathFromFile(filePath: string){
+    let data =  readSopsFile(filePath);
+    let decryptKey =  data.then(({sops}) => kmsDecryptSopsKey(sops));
+    return async (path: string[]) => readValueAtPathFromData(path, await data, await decryptKey);
+}
+
+async function readSopsFile(file: string): Promise<Sops> {
     const filePath = path.resolve(process.cwd(), file);
     const fileContents = await readFileAsync(filePath, {encoding: 'utf8'});
     const ext = path.extname(filePath);
@@ -45,12 +70,17 @@ export async function toEnvFromFile(file: string, options?: Options): Promise<vo
     switch(ext) {
         case '.yml':
         case '.yaml':
-            return toEnvFromData(yaml.safeLoad(fileContents), options);
+            return yaml.safeLoad(fileContents);
         case '.json':
-            return toEnvFromData(JSON.parse(fileContents));
+            return JSON.parse(fileContents);
         default:
             throw new Error('Unrecognized file extension');
     }
+}
+
+
+export async function toEnvFromFile(file: string, options?: Options): Promise<void> {
+    return toEnvFromData(await readSopsFile(file), options);
 }
 
 
