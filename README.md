@@ -27,7 +27,7 @@ const readFileAsync = promisify(fs.readFile);
 async function dbPassword() {
     const fileContents = await readFileAsync(path.resolve(__dirname, './test2.json'), {encoding: 'utf8'});
     let data = JSON.parse(fileContents);
-    return await readJsonPath(['database', 'password'], data);
+    return await readValueAtPathFromData(['database', 'password'], data);
 }
 
 ```

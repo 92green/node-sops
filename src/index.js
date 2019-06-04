@@ -45,8 +45,9 @@ const defaults = {
  * @param {Object} data Javascript object containing encrypted data.
  * @param {Buffer} decryptKey buffer containing the decript key, attempts to get the key from KMS if not supplied.
  */
-export async function readValueFromPath(path: string[], data: Sop, decryptKey: ?Buffer){
-    decryptKey = decryptKey || await kmsDecryptSopsKey(data.sops);
+export async function readValueAtPathFromData(path: string[], data: Sops, decryptKey: ?Buffer){
+    decryptKey = await decryptKey || await kmsDecryptSopsKey(data.sops);
+    if(!decryptKey) throw new Error('Unable to decrypt sops key');
     let value = path.reduce((o, n) => o[n], data);
     return decryptItem(path.join(':'), value, decryptKey, data.sops);
 }
@@ -58,10 +59,10 @@ export async function readValueFromPath(path: string[], data: Sop, decryptKey: ?
 export async function readValueAtPathFromFile(filePath: string){
     let data = await readSopsFile(filePath);
     let decryptKey = await kmsDecryptSopsKey(data.sops);
-    return (path: string[]) => readValueFromPath(path, data, decryptKey);
+    return (path: string[]) => readValueAtPathFromData(path, data, decryptKey);
 }
 
-async function readSopsFile(file: string): Promise<void> {
+async function readSopsFile(file: string): Promise<Sops> {
     const filePath = path.resolve(process.cwd(), file);
     const fileContents = await readFileAsync(filePath, {encoding: 'utf8'});
     const ext = path.extname(filePath);
