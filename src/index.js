@@ -37,6 +37,12 @@ const defaults = {
     overrideExisting: false
 };
 
+export async function readJsonPath(path: string[], data: Sop, decryptKey: ?Buffer){
+    decryptKey = decryptKey || await kmsDecryptSopsKey(data.sops);
+    let value = path.reduce((o, n) => o[n], data);
+    return decryptItem(path.join(':'), value, decryptKey, data.sops);
+}
+
 export async function toEnvFromFile(file: string, options?: Options): Promise<void> {
     const filePath = path.resolve(process.cwd(), file);
     const fileContents = await readFileAsync(filePath, {encoding: 'utf8'});
