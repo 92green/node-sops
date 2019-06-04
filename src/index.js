@@ -37,13 +37,15 @@ const defaults = {
     overrideExisting: false
 };
 
+
+
 /**
  * Decodes an encoded value from file that has been loaded as a javascript object.
  * @param {string[]} path path where the key can be found.
  * @param {Object} data Javascript object containing encrypted data.
  * @param {Buffer} decryptKey buffer containing the decript key, attempts to get the key from KMS if not supplied.
  */
-export async function readJsonPath(path: string[], data: Sop, decryptKey: ?Buffer){
+export async function readValueFromPath(path: string[], data: Sop, decryptKey: ?Buffer){
     decryptKey = decryptKey || await kmsDecryptSopsKey(data.sops);
     let value = path.reduce((o, n) => o[n], data);
     return decryptItem(path.join(':'), value, decryptKey, data.sops);

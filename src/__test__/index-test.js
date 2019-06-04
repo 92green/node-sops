@@ -1,7 +1,7 @@
 // @flow
 import {toEnvFromData} from '../';
 import {toEnvFromFile} from '../';
-import {readJsonPath} from '../';
+import {readValueFromPath} from '../';
 import path from 'path';
 import fs from 'fs';
 import {promisify} from 'util';
@@ -31,29 +31,29 @@ test('Can read from json file', async () => {
 test('Can lookup keys', async () => {
     const fileContents = await readFileAsync(path.resolve(__dirname, './test.json'), {encoding: 'utf8'});
     let data = JSON.parse(fileContents);
-    expect(await readJsonPath(['JSON_TEST_VAR_STRING'], data)).toBe('test_var_string');
+    expect(await readValueFromPath(['JSON_TEST_VAR_STRING'], data)).toBe('test_var_string');
 });
 
 test('Can lookup keys inside objects', async () => {
     const fileContents = await readFileAsync(path.resolve(__dirname, './test2.json'), {encoding: 'utf8'});
     let data = JSON.parse(fileContents);
-    expect(await readJsonPath(['example_object', 'key1'], data)).toBe('value1');
+    expect(await readValueFromPath(['example_object', 'key1'], data)).toBe('value1');
 });
 
 test('Can lookup strings', async () => {
     const fileContents = await readFileAsync(path.resolve(__dirname, './test2.json'), {encoding: 'utf8'});
     let data = JSON.parse(fileContents);
-    expect(await readJsonPath(['example_key'], data)).toBe('example_value');
+    expect(await readValueFromPath(['example_key'], data)).toBe('example_value');
 });
 
 test('Can lookup numbers', async () => {
     const fileContents = await readFileAsync(path.resolve(__dirname, './test2.json'), {encoding: 'utf8'});
     let data = JSON.parse(fileContents);
-    expect(await readJsonPath(['example_number'], data)).toBe(1234.56789);
+    expect(await readValueFromPath(['example_number'], data)).toBe(1234.56789);
 });
 // TODO: fix allow arrays to be used
 // test('Can lookup arrays', async () => {
 //     const fileContents = await readFileAsync(path.resolve(__dirname, './test2.json'), {encoding: 'utf8'});
 //     let data = JSON.parse(fileContents);
-//     expect(await readJsonPath(['example_array', '0'], data)).toBe('example_value1');
+//     expect(await readValueFromPath(['example_array', '0'], data)).toBe('example_value1');
 // });
