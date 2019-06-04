@@ -56,10 +56,10 @@ export async function readValueAtPathFromData(path: string[], data: Sops, decryp
  * Returns a Javascript object with the encoded values of the 
  * @param {sting} filePath path where the sops file can be found
  */
-export async function readValueAtPathFromFile(filePath: string){
-    let data = await readSopsFile(filePath);
-    let decryptKey = await kmsDecryptSopsKey(data.sops);
-    return (path: string[]) => readValueAtPathFromData(path, data, decryptKey);
+export function readValueAtPathFromFile(filePath: string){
+    let data =  readSopsFile(filePath);
+    let decryptKey =  data.then(({sops}) => kmsDecryptSopsKey(sops));
+    return async (path: string[]) => readValueAtPathFromData(path, await data, await decryptKey)
 }
 
 async function readSopsFile(file: string): Promise<Sops> {

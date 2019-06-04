@@ -54,7 +54,7 @@ test('Can lookup numbers', async () => {
 });
 
 test('readValueAtPathFromFile - returns the value at the path and loads the file', async () => {
-    let readValue = await readValueAtPathFromFile(path.resolve(__dirname, './test2.json'));
+    let readValue = readValueAtPathFromFile(path.resolve(__dirname, './test2.json'));
     expect(await readValue(['example_number'])).toBe(1234.56789);
 });
 // TODO: fix allow arrays to be 
