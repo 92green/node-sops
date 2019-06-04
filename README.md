@@ -20,7 +20,7 @@ Given a JSON file with an object `{ database: { password: "ENC[AES256_GCM,data:p
 
  ```javascript
 async function dbPassword() {
-    const readValue = await readValueAtPathFromFile(path.resolve(__dirname, './test2.json'));
+    const readValue = readValueAtPathFromFile(path.resolve(__dirname, './test2.json'));
     return await readValue(['database', 'password']);
 }
 ```

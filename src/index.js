@@ -53,7 +53,7 @@ export async function readValueAtPathFromData(path: string[], data: Sops, decryp
 }
 
 /**
- * Returns a Javascript object with the encoded values of the 
+ * Return a partially applied version of `readValueAtPathFromData` that reads the file and the decription key
  * @param {sting} filePath path where the sops file can be found
  */
 export function readValueAtPathFromFile(filePath: string){
