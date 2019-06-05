@@ -49,6 +49,9 @@ export async function readValueAtPathFromData(path: string[], data: Sops, decryp
     decryptKey = await decryptKey || await kmsDecryptSopsKey(data.sops);
     if(!decryptKey) throw new Error('Unable to decrypt sops key');
     let value = path.reduce((o, n) => o[n], data);
+    if(!value){
+        throw new Error(`path ${path.join(':')}: does not exist in sops file`);
+    }
     return decryptItem(path.join(':'), value, decryptKey, data.sops);
 }
 
