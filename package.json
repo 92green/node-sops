@@ -1,10 +1,14 @@
 {
-  "name": "@blueflag/sops",
+  "name": "@92green/node-sops",
   "version": "0.3.0",
   "main": "./lib/index.js",
   "files": [
     "lib"
   ],
+  "repository": "https://github.com/92green/node-sops",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
+  },
   "license": "MIT",
   "scripts": {
     "build": "rm -rf lib && NODE_ENV=production babel src --out-dir lib --ignore '**/*-test.js, __mocks__/**'",
