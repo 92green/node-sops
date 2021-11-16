@@ -20,7 +20,7 @@
     "test-all": "yarn lint && yarn flow && yarn test && yarn flow-coverage"
   },
   "dependencies": {
-    "aws-sdk": "^2.282.1",
+    "aws-sdk": "^2.814.0",
     "js-yaml": "^3.12.0"
   },
   "devDependencies": {
